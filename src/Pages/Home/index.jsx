@@ -4,9 +4,12 @@ import Header from "../../Components/Header";
 import Button from "../../Components/Button";
 import StyledHomepage from "./style";
 import api from "../../Services/API";
+import { useContext } from "react";
+import { UserContext } from "../../Providers/UserContext";
 
-const HomePage = ({ setUser, user }) => {
+const HomePage = () => {
   const navigate = useNavigate();
+  const {user, setUser} = useContext(UserContext)
 
   useEffect(() => {
     const token = localStorage.getItem("@TOKEN");
@@ -24,7 +27,7 @@ const HomePage = ({ setUser, user }) => {
       }
       getUser()
     }
-  }, [navigate]);
+  },);
 
   const logOut = () => {
     setUser();
