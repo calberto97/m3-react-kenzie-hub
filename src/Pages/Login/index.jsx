@@ -69,7 +69,7 @@ const LoginPage = () => {
           onClick={() => {
             setTimeout(() => {
               reset();
-            }, 2000);
+            }, 2800);
           }}
           innerText={loading ? "Entrando..." : "Entrar"}
         />
