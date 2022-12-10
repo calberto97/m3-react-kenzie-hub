@@ -1,33 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header";
 import Button from "../../Components/Button";
 import StyledHomepage from "./style";
-import api from "../../Services/API";
 import { useContext } from "react";
 import { UserContext } from "../../Providers/UserContext";
+import TechList from "../../Components/TechList";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const {user, setUser} = useContext(UserContext)
-
-  useEffect(() => {
-    const token = localStorage.getItem("@TOKEN");
-    const userID = localStorage.getItem("@USERID");
-    if (token === null || userID === null) {
-      navigate("/login");
-    } else {
-      async function getUser() {
-        try {
-          const response = await api.get(`/users/${userID}`)
-          setUser(response.data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      getUser()
-    }
-  },);
 
   const logOut = () => {
     setUser();
@@ -54,13 +36,7 @@ const HomePage = () => {
                 <p>{user.course_module}</p>
               </small>
             </section>
-            <div>
-              <h1>Que pena! Estamos em desenvolvimento :(</h1>
-              <p>
-                Nossa aplicação está em desenvolvimento, em breve
-                teremos novidades
-              </p>
-            </div>
+            <TechList/>
           </StyledHomepage>
         </>
       )}

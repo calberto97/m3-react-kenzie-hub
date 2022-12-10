@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import api from "../../Services/API";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,6 +58,30 @@ export const UserProvider = ({ children }) => {
       }, 2700);
     }
   };
+
+  useEffect(() => {
+    async function verifyUser() {
+      const token = localStorage.getItem("@TOKEN");
+
+      if (!token) {
+        // setLoading(false)
+        navigate("/login");
+        return;
+      }
+
+      try {
+        api
+          .get("/profile", {
+            headers: { authorization: `Bearer ${token}` },
+          })
+          .then((response) => setUser(response.data));
+      } catch (error) {
+        console.error(error);
+        window.localStorage.clear();
+      }
+    }
+    verifyUser();
+  }, []);
 
   return (
     <UserContext.Provider

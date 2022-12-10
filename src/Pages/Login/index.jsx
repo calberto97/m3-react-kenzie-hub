@@ -12,19 +12,10 @@ import { UserContext } from "../../Providers/UserContext";
 import { loginSchema } from "./loginSchema";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("@TOKEN");
-    const userID = localStorage.getItem("@USERID");
-    if (token || userID) {
-      navigate("/home");
-    }
-  }, [navigate]);
-
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(loginSchema),
@@ -32,6 +23,15 @@ const LoginPage = () => {
   });
 
   const { onSubmitLogin, loading } = useContext(UserContext);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("@TOKEN");
+    const userID = localStorage.getItem("@USERID");
+    if (token || userID) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -66,6 +66,11 @@ const LoginPage = () => {
           pink={true}
           small={false}
           disabled={!isDirty | !isValid}
+          onClick={() => {
+            setTimeout(() => {
+              reset();
+            }, 2000);
+          }}
           innerText={loading ? "Entrando..." : "Entrar"}
         />
         <small>Ainda não possui uma conta?</small>

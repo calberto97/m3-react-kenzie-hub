@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Input from "../../Components/Input";
@@ -10,21 +9,13 @@ import Header from "../../Components/Header";
 import { useContext } from "react";
 import { UserContext } from "../../Providers/UserContext";
 import { registerSchema } from "./registerSchema";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("@TOKEN");
-    const userID = localStorage.getItem("@USERID");
-    if (token || userID) {
-      navigate("/home");
-    }
-  }, [navigate]);
-
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(registerSchema),
@@ -32,6 +23,15 @@ const RegisterPage = () => {
   });
 
   const { loading, onSubmitRegister } = useContext(UserContext);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("@TOKEN");
+    const userID = localStorage.getItem("@USERID");
+    if (token || userID) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -150,6 +150,15 @@ const RegisterPage = () => {
           pink={true}
           small={false}
           disabled={!isDirty | !isValid}
+          onClick={() => {
+            setTimeout(() => {
+              reset({
+                email: '',
+                password: '',
+                passwordOK:'',
+              });
+            }, 2000);
+          }}
           innerText={loading ? "Cadastrando..." : "Cadastrar"}
         />
       </Form>
