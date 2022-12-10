@@ -13,40 +13,50 @@ const StyledSection = styled.section`
   align-items: center;
   justify-content: center;
   transition: 1s ease;
-  
+
   z-index: 199;
+
   > div {
     background-color: var(--color-grey-3);
     width: 370px;
     /* min-height: 374px; */
     border-radius: 4px;
     overflow: hidden;
-    
+
     z-index: 200;
+    @media (max-width: 550px) {
+      margin: 0 -10px;
+    }
     > span {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px;
+      @media (max-width: 550px) {
+        padding: 10px 10px;
+      }
       background-color: var(--color-grey-2);
-      
+
       svg {
         color: var(--color-grey-1);
         cursor: pointer;
       }
     }
   }
-  
+
   > div {
     form {
       padding: 20px;
+      @media (max-width: 550px) {
+        padding: 10px;
+      }
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       height: 85%;
       gap: 20px;
-      
+
       label {
         margin-bottom: -10px;
       }
@@ -57,13 +67,15 @@ const StyledSection = styled.section`
         margin-top: -14px;
         display: inline-block;
       }
-
     }
     > small {
       margin-top: -10px;
       padding: 0 20px 10px;
-
-      >button {
+      @media (max-width: 550px) {
+        padding: 10px;
+        margin-top: -12px;
+      }
+      > button {
         width: 100%;
       }
     }

@@ -43,6 +43,12 @@ const StyledDiv = styled.div`
       border-radius: 10px;
       border: 3px solid var(--color-grey-3);
     }
+
+    @media (max-width: 550px) {
+      overflow: visible;
+      max-height: fit-content;
+      padding: 14px 8px;
+    }
   }
 
   li {
@@ -57,8 +63,16 @@ const StyledDiv = styled.div`
     transition: 0.4s ease;
     height: 50px;
 
+    @media (max-width: 550px) {
+      padding: 12px;
+    }
+
     + li {
       margin-top: 16px;
+
+      @media (max-width: 550px) {
+        margin-top: 10px;
+      }
     }
 
     :hover {
@@ -87,6 +101,9 @@ const StyledDiv = styled.div`
     cursor: pointer;
     margin-left: 24px;
     transition: 400ms ease;
+    @media (max-width: 550px) {
+      margin-left: 8px;
+    }
   }
 
   li > span > svg:hover {

@@ -37,16 +37,9 @@ const StyledHomepage = styled.main`
   @media (max-width: 850px) {
     section {
       padding: 45px 20px;
-      small {
-        /* flex-direction: column;
-        align-items: flex-start;
-        gap: 14px; */
-      }
     }
 
-    div {
-      /* display: none; */
-    }
+
   }
 
   @media (max-width: 550px) {
@@ -58,9 +51,6 @@ const StyledHomepage = styled.main`
       }
     }
 
-    div {
-      display: none;
-    }
   }
 `;
 

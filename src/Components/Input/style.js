@@ -13,6 +13,7 @@ const StyledInput = styled.fieldset`
 
   input, select {
     background-color: var(--color-grey-2);
+    width: 100%;
     height: 48px;
     padding: 0 16px;
     border: 1px solid transparent;
