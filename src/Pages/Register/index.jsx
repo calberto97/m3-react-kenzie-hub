@@ -157,7 +157,7 @@ const RegisterPage = () => {
                 password: '',
                 passwordOK:'',
               });
-            }, 2000);
+            }, 2800);
           }}
           innerText={loading ? "Cadastrando..." : "Cadastrar"}
         />
