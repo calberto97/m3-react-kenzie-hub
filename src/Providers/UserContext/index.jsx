@@ -24,19 +24,15 @@ export const UserProvider = ({ children }) => {
       window.localStorage.setItem("@USERID", response.data.user.id);
       setUser(response.data.user);
       notifySuccess("Login efetuado com sucesso!");
-      setTimeout(() => {
-        navigate("/home");
-      }, 2500);
+      navigate("/home");
     } catch (error) {
       setError("error", {
         message: console.log(error.response.data.message),
       });
       notifyError("Ops!  Algo deu errado");
     } finally {
-      setTimeout(() => {
-        reset();
-        setLoading(false);
-      }, 2700);
+      reset();
+      setLoading(false);
     }
   };
 
@@ -44,18 +40,14 @@ export const UserProvider = ({ children }) => {
     try {
       await api.post("/users", data);
       notifySuccess("Cadastro efetuado com sucesso!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2500);
+      navigate("/login");
     } catch (error) {
       setError("error", {
         message: console.log(error.response.data),
       });
       notifyError("Ops!  Algo deu errado");
     } finally {
-      setTimeout(() => {
-        reset();
-      }, 2700);
+      reset()
     }
   };
 
@@ -63,21 +55,20 @@ export const UserProvider = ({ children }) => {
     async function verifyUser() {
       const token = localStorage.getItem("@TOKEN");
 
-      if (!token) {
-        // setLoading(false)
-        navigate("/login");
-        return;
-      }
+      if (token) {
+          api
+            .get("/profile", {
+              headers: { authorization: `Bearer ${token}` },
+            })
+            .then((response) => setUser(response.data))
+            .catch((error) => {
+              console.error(error);
+              window.localStorage.clear();
+              navigate("/login");
+            });
 
-      try {
-        api
-          .get("/profile", {
-            headers: { authorization: `Bearer ${token}` },
-          })
-          .then((response) => setUser(response.data));
-      } catch (error) {
-        console.error(error);
-        window.localStorage.clear();
+      } else {
+        navigate("/login");
       }
     }
     verifyUser();
